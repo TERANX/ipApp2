@@ -1,7 +1,7 @@
-package com.example.example.service;
+package com.example.springsecurity.service;
 
-import com.example.example.model.User;
-import com.example.example.repositiry.UserRepository;
+import com.example.springsecurity.model.User;
+import com.example.springsecurity.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

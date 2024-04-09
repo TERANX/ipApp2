@@ -1,7 +1,7 @@
-package com.example.example.controller;
+package com.example.springsecurity.controller;
 
-import com.example.example.model.User;
-import com.example.example.service.UserService;
+import com.example.springsecurity.model.User;
+import com.example.springsecurity.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
