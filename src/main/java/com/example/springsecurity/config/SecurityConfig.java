@@ -25,8 +25,8 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     //Пасворд энкодер используется ждя одностороннего преобразования пароля
     @Bean
-    public UserDetailsService userDetailsService(){
-        return  new MyUserDetailsService();
+    public UserDetailsService userDetailsService() {
+        return new MyUserDetailsService();
     }
 //    @Bean
 //    public UserDetailsService userDetailsService(PasswordEncoder encoder){
@@ -52,9 +52,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth-> auth.requestMatchers("api/v1/apps/welcome", "api/v1/apps/new-user", "/").permitAll() //чтоб контрольная точка была доступна всем
+                .authorizeHttpRequests(auth -> auth.requestMatchers("api/v1/apps/welcome", "api/v1/apps/new-user", "/**", "/reg").permitAll() //чтоб контрольная точка была доступна всем
                         .requestMatchers("/api/v1/apps/**").authenticated())         //для авторизованных
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)         //разрешение доступа к форме авторизации
+                .formLogin(fl -> fl.loginPage("/login").permitAll())         //разрешение доступа к форме авторизации
 //                .formLogin().loginPage("/login").permitAll()
                 .build();
     }
@@ -69,7 +69,7 @@ public class SecurityConfig {
 //    }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
