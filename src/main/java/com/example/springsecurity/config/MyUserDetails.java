@@ -1,12 +1,15 @@
 package com.example.springsecurity.config;
 
+//import com.example.springsecurity.model.Role;
 import com.example.springsecurity.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class MyUserDetails implements UserDetails {
@@ -22,6 +25,7 @@ public class MyUserDetails implements UserDetails {
                 .map(SimpleGrantedAuthority::new) //преобразуем строковое значение в нужный класс
                 .collect(Collectors.toList()); //собираем все роли в лист
     }
+
 
     @Override
     public String getPassword() {

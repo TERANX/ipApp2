@@ -5,11 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "user_table")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -21,5 +21,7 @@ public class User {
     private String email;
     private String address;
     private String roles;
+    @OneToMany(mappedBy = "user")
+    private List<CompletingTask> completingTasks;
 }
 
