@@ -2,7 +2,6 @@ package com.example.springsecurity.controller.controllers;
 
 import com.example.springsecurity.model.Application;
 import com.example.springsecurity.model.User;
-import com.example.springsecurity.service.AppService;
 import com.example.springsecurity.service.UserService;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import jakarta.validation.Valid;
@@ -25,7 +24,6 @@ public class ControllerForm {
 
     private UserService userService;
 
-    private AppService service;
 
         // add realisation "/"
         @GetMapping("/")

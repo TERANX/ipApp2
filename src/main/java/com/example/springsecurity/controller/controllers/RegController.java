@@ -1,7 +1,6 @@
 package com.example.springsecurity.controller.controllers;
 
 import com.example.springsecurity.model.User;
-import com.example.springsecurity.service.AppService;
 import com.example.springsecurity.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -21,8 +20,7 @@ public class RegController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private AppService service;
+
 
     @GetMapping("/reg")
     public String registration(Model model){
@@ -46,7 +44,7 @@ public class RegController {
 //            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
 //            return "reg";
 //        }
-        userService.save(userForm);
+        userService.addUser(userForm);
         return "redirect:/login";
     }
 
