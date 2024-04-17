@@ -54,7 +54,7 @@ public class AppService {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         repository.save(user);
-        return false;
+        return true;
     }
 
 }

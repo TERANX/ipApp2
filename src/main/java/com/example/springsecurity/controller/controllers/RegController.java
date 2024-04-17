@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 public class RegController {
 
-//    @Autowired
-//    private UserService userService;
+    @Autowired
+    private UserService userService;
     @Autowired
     private AppService service;
 
@@ -46,6 +46,9 @@ public class RegController {
             model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
             return "reg";
         }
+
+        service.addUser(userForm);
+        userService.save(userForm);
         return "redirect:/login";
     }
 
