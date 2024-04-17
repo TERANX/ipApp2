@@ -43,21 +43,5 @@ public class ControllerForm {
             return "login";
         }
 
-    @GetMapping("/reg")
-    public String registration(Model model){
-        model.addAttribute("user", new User());
-        return "reg";
-    }
-
-    @PostMapping("/reg")
-    public String registration(@ModelAttribute("user") @Valid User user, Model model){
-        userService.save(user);
-//        @JsonSubTypes.Type(FormSubmitEvent.class)
-        service.addUser(user);
-//        return "redirect:/login";
-        return "reg";
-    }
-
-//    }
 
 }
