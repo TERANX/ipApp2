@@ -44,17 +44,22 @@ public class AppService {
                 .orElse(null);
     }
 
-    public boolean addUser(User user){
-
-        Optional<User> ufbd = repository.findByName(user.getName());
-
-        if (ufbd.isPresent()) {
-            return false;
-        }
-
+    public  void addUser(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         repository.save(user);
-        return true;
     }
+
+//    public boolean addUser(User user){
+//
+//        Optional<User> ufbd = repository.findByName(user.getName());
+//
+//        if (ufbd.isPresent()) {
+//            return false;
+//        }
+//
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        repository.save(user);
+//        return true;
+//    }
 
 }

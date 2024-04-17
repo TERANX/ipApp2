@@ -32,20 +32,20 @@ public class RegController {
 
     @PostMapping("/reg")
     public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) {
-
-        if (bindingResult.hasErrors()) {
-            return "reg";
-        }
+//
+//        if (bindingResult.hasErrors()) {
+//            return "reg";
+//        }
 
 //        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
 //            model.addAttribute("passwordError", "Пароли не совпадают");
 //            return "registration";
 //        } // если сделаем проверку на правильность ввода пароля
 
-        if (!service.addUser(userForm)){
-            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-            return "reg";
-        }
+//        if (!service.addUser(userForm)){
+//            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
+//            return "reg";
+//        }
 
         service.addUser(userForm);
         userService.save(userForm);
