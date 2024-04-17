@@ -46,8 +46,6 @@ public class RegController {
 //            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
 //            return "reg";
 //        }
-
-        service.addUser(userForm);
         userService.save(userForm);
         return "redirect:/login";
     }

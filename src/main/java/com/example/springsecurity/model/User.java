@@ -19,7 +19,7 @@ public class User {
     private String password;
     @Column(unique = true)
     private String email;
-    private String address;
+//    private String address;
     private String roles;
 }
 
