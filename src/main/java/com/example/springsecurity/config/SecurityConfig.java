@@ -1,6 +1,7 @@
 package com.example.springsecurity.config;
 
-import com.example.springsecurity.service.MyUserDetailsService;
+//import com.example.springsecurity.service.MyUserDetailsService;
+import com.example.springsecurity.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -25,8 +26,8 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     //Пасворд энкодер используется ждя одностороннего преобразования пароля
     @Bean
-    public UserDetailsService userDetailsService() {
-        return new MyUserDetailsService();
+    public UserService userDetailsService() {
+        return new UserService();
     }
 //    @Bean
 //    public UserDetailsService userDetailsService(PasswordEncoder encoder){
