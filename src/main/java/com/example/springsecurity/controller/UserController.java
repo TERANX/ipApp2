@@ -1,5 +1,6 @@
 package com.example.springsecurity.controller;
 
+import com.example.springsecurity.errors.EmailExistsException;
 import com.example.springsecurity.model.User;
 import com.example.springsecurity.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class UserController {
         return service.getById(id);
     }
     @PostMapping("/users")
-    public User save (@RequestBody User user) {
+    public User save (@RequestBody User user) throws EmailExistsException {
         return service.save(user);
     }
     @DeleteMapping("/users/{id}")

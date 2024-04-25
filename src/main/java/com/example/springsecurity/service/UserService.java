@@ -1,9 +1,11 @@
 package com.example.springsecurity.service;
 
+import com.example.springsecurity.errors.EmailExistsException;
 import com.example.springsecurity.model.User;
 import com.example.springsecurity.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,10 @@ public class UserService {
     @Autowired
     private  final UserRepository repo;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
+
     public List<User> getAll() {
         return repo.findAll();
     }
@@ -25,7 +31,8 @@ public class UserService {
                 () -> new RuntimeException(String.format("no user with id=%d founded ", id)));
     }
 
-    public User save (User user) {
+    public User save (User user) throws EmailExistsException {
+        user.setPassword(encoder.encode(user.getPassword()));
         return repo.save(user);
     }
 
@@ -37,7 +44,7 @@ public class UserService {
     }
 
 //    private PasswordEncoder passwordEncoder;
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
 //    public User save(User user){
 //        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));

@@ -1,5 +1,6 @@
 package com.example.springsecurity.controller.controllers;
 
+import com.example.springsecurity.errors.EmailExistsException;
 import com.example.springsecurity.model.User;
 import com.example.springsecurity.service.AppService;
 import com.example.springsecurity.service.UserService;
@@ -31,7 +32,7 @@ public class RegController {
     }
 
     @PostMapping("/reg")
-    public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) {
+    public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) throws EmailExistsException {
         if (!StringUtils.hasText(userForm.getRoles())) {
             userForm.setRoles("USER");
         }
