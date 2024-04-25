@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
 @AllArgsConstructor
 public class RegController {
 
@@ -32,6 +32,9 @@ public class RegController {
 
     @PostMapping("/reg")
     public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) {
+        if (!StringUtils.hasText(userForm.getRoles())) {
+            userForm.setRoles("USER");
+        }
 //
 //        if (bindingResult.hasErrors()) {
 //            return "reg";

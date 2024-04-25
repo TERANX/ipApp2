@@ -16,30 +16,30 @@ import java.util.List;
 @AllArgsConstructor
 public class AppController {
 
-    private AppService service;
-
-    @GetMapping("/welcome")
-    public  String welcome() {
-        return "Welcome to the unprotected page";
-    }
-
-    @GetMapping("/all-app")
-    @PreAuthorize("hasAuthority('ROLE_USER')") //аннотация описывает правило для получения доступа к данной контрольной точке
-    public List<Application> allApplication() {
-        return  service.allApplicatoions();
-    }
-
-    @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public  Application applicationById(@PathVariable int id){
-        return service.applicationByID(id);
-    }
-
-    @PostMapping("/new-user")
-    public String addUser(@RequestBody User user){
-        service.addUser(user);
-        return "User is saved";
-    }
+//    private AppService service;
+//
+//    @GetMapping("/welcome")
+//    public  String welcome() {
+//        return "Welcome to the unprotected page";
+//    }
+//
+//    @GetMapping("/all-app")
+//    @PreAuthorize("hasAuthority('ROLE_USER')") //аннотация описывает правило для получения доступа к данной контрольной точке
+//    public List<Application> allApplication() {
+//        return  service.allApplicatoions();
+//    }
+//
+//    @GetMapping("/{id}")
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+//    public  Application applicationById(@PathVariable int id){
+//        return service.applicationByID(id);
+//    }
+//
+//    @PostMapping("/new-user")
+//    public String addUser(@RequestBody User user){
+//        service.addUser(user);
+//        return "User is saved";
+//    }
 
     // add realisation
 //    @GetMapping("/")
