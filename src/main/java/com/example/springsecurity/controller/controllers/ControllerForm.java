@@ -18,7 +18,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/")
+//@RequestMapping("/")
 @AllArgsConstructor
 public class ControllerForm {
     // Без thymeleaf будет выводится стандартная форма секьюрити, не будет срабатывать индекс.штмл,
@@ -47,8 +47,10 @@ public class ControllerForm {
     }
 
     @PostMapping("/login")
-    public String toHome(Model model){
+    public String toHome(Model model, @RequestParam("email") String email, @RequestParam("password") String password){
         model.addAttribute("title", "Home Page");
+        System.out.println(email);
+        System.out.println(password);
             return "redirect:/index";
         }
 

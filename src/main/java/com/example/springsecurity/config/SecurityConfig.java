@@ -48,18 +48,19 @@ public class SecurityConfig {
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
+
 //"api/v1/apps/welcome", "api/v1/apps/new-user", "/**",
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/reg", "/index", "/login").permitAll() //чтоб контрольная точка была доступна всем
-                .requestMatchers("/api/v1/apps/**").authenticated())         //для авторизованных
+                .requestMatchers("/**").authenticated())         //для авторизованных
                 .formLogin(fl -> fl.loginPage("/login")
                         .passwordParameter("password")
                         .usernameParameter("name")
                         .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/index", true)
-                        .failureUrl("/login?error=true")
+//                        .failureUrl("/login?error=true")
                         .permitAll())         //разрешение доступа к форме авторизации
 //                .formLogin().loginPage("/login").permitAll()
                 .build();
