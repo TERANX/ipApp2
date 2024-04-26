@@ -3,6 +3,8 @@ package com.example.springsecurity.service;
 import com.example.springsecurity.errors.EmailExistsException;
 import com.example.springsecurity.model.User;
 import com.example.springsecurity.repository.UserRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +17,9 @@ import java.util.List;
 public class UserService {
     @Autowired
     private  final UserRepository repo;
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -41,12 +46,10 @@ public class UserService {
         return user;
     }
 
-//    private PasswordEncoder passwordEncoder;
+    public List<User> usergtList(Long idMin) {
+        return em.createQuery("SELECT u FROM User u WHERE u.id > :id", User.class)
+                .setParameter("id", idMin).getResultList();
+    }
 
-
-//    public User save(User user){
-//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-//        return repo.save(user);
-//    }
 
 }

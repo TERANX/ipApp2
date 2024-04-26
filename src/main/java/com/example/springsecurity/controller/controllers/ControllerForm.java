@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.FormSubmitEvent;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/")
 @AllArgsConstructor
@@ -23,24 +26,30 @@ public class ControllerForm {
 //        public class AppController {
     // то  он отрабатывает
 
-    private UserService userService;
 
-    private AppService service;
+    // add realisation "/"
+    @GetMapping("/index")
+    public String home(Model model) {
+        model.addAttribute("title", "Home Page");
+        return "index";
+    }
 
-        // add realisation "/"
-        @GetMapping("/")
-        public String home(Model model){
-            model.addAttribute("title", "Home Page");
-            return "index";
-        }
+    @GetMapping("/login")
+    public String getLogin(@RequestParam("error" ) final Optional<String> error,
+                           @RequestParam("logout") final Optional<String> logout,
+                           Model model) {
 
-        @GetMapping("/login")
-        public String getLogin(@RequestParam (value = "error", required = false) String error,
-                               @RequestParam (value = "logout", required = false) String logout,
-                               Model model){
-            model.addAttribute("error", error !=null);
-            model.addAttribute("logout", logout !=null);
-            return "login";
+        error.ifPresent( e ->  model.addAttribute("error", e));
+
+        logout.ifPresent( e -> model.addAttribute("logout", e));
+
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String toHome(Model model){
+        model.addAttribute("title", "Home Page");
+            return "redirect:/index";
         }
 
 

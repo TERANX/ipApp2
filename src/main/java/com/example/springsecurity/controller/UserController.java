@@ -23,10 +23,12 @@ public class UserController {
     public User getById(@PathVariable Long id) {
         return service.getById(id);
     }
+
     @PostMapping("/users")
     public User save (@RequestBody User user) throws EmailExistsException {
         return service.save(user);
     }
+
     @DeleteMapping("/users/{id}")
     public User delete (@PathVariable Long id) {
         return service.delete(id);
