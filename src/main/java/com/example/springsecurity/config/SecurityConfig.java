@@ -53,14 +53,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/reg", "/index", "/login").permitAll() //чтоб контрольная точка была доступна всем
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/reg", "/index", "/login","/").permitAll() //чтоб контрольная точка была доступна всем
                 .requestMatchers("/**").authenticated())         //для авторизованных
                 .formLogin(fl -> fl.loginPage("/login")
                         .passwordParameter("password")
                         .usernameParameter("name")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/index", true)
-//                        .failureUrl("/login?error=true")
+                        .defaultSuccessUrl("/afterReg", true)
+                        .failureUrl("/login?error=true")
                         .permitAll())         //разрешение доступа к форме авторизации
 //                .formLogin().loginPage("/login").permitAll()
                 .build();

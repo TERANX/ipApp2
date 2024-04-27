@@ -18,7 +18,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Controller
-//@RequestMapping("/")
+@RequestMapping("/")
 @AllArgsConstructor
 public class ControllerForm {
     // Без thymeleaf будет выводится стандартная форма секьюрити, не будет срабатывать индекс.штмл,
@@ -34,12 +34,20 @@ public class ControllerForm {
         return "index";
     }
 
+    @GetMapping("/afterReg")
+    public String afterReg(Model model) {
+        model.addAttribute("title", "Home Page");
+        return "afterReg";
+    }
+
     @GetMapping("/login")
     public String getLogin(@RequestParam("error" ) final Optional<String> error,
                            @RequestParam("logout") final Optional<String> logout,
                            Model model) {
 
-        error.ifPresent( e ->  model.addAttribute("error", e));
+        error.ifPresent( e ->  model.addAttribute("error", "Неправильный логин или пароль")
+            );
+
 
         logout.ifPresent( e -> model.addAttribute("logout", e));
 
@@ -52,6 +60,8 @@ public class ControllerForm {
         System.out.println(email);
         System.out.println(password);
             return "redirect:/index";
+//            return "redirect:/afterReg";
+
         }
 
 
