@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Задачи</title>
+</head>
+<body>
+<h2>ЗАДАЧИ</h2>
+<table>
+  <thead>
+  <tr>
+    <th>id</th>
+    <th>Наименование</th>
+    <th>Условие</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="task:${tasks}">
+    <td th:text="${task.id}"></td>
+    <td th:text="${task.name}"></td>
+    <td th:text="${task.condition}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

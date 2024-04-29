@@ -3,6 +3,8 @@ package com.example.springsecurity.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -19,7 +21,7 @@ public class User {
     private String email;
 //    private String address;
     private String roles;
-
-
+    @OneToMany(mappedBy = "user")
+    private List<CompletingTask> completingTasks;
 }
 
