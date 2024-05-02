@@ -33,6 +33,7 @@ public class AdminController {
 
     @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute User user) {
+        user.setPassword("123");
         ur.save(user);
         return "redirect:/admin";
     }
