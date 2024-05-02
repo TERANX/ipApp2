@@ -6,12 +6,8 @@ import com.example.springsecurity.repository.UserRepository;
 import com.example.springsecurity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Optional;
-import java.util.Set;
 
 @Controller
 public class AdminController {
@@ -20,20 +16,6 @@ public class AdminController {
     @Autowired
     private UserRepository ur;
 
-//    @RequestMapping(value = "/showAll", method=RequestMethod.GET)
-//    public String showAll() {
-//        Set<User> users = (Set<User>) ur.findAll();
-//
-//       return "users";
-//    }
-
-//    @RequestMapping(value="/showteams", method=RequestMethod.GET)
-//    public Set<Team> teams()
-//    {
-//        Set<Team> teams = (Set<Team>) teamRepository.findAll();
-//        return teams;
-//    }
-
     @GetMapping({"/admin", "/"})
     public ModelAndView getAllEmployees() {
         ModelAndView mav = new ModelAndView("listUsers");
@@ -41,23 +23,46 @@ public class AdminController {
         return mav;
     }
 
-//    @GetMapping("/all")
-//    public String showAll(Model model) {
-//        model.addAttribute("users", userService.findAll());
-//        return "users/allUsers";
-//
-//
-//
-//    }
+    @GetMapping("/addUserForm")
+    public ModelAndView addUserForm() {
+        ModelAndView mav = new ModelAndView("addUserForm");
+        User newUser = new User();
+        mav.addObject("user", newUser);
+        return mav;
+    }
 
-//    @PostMapping("/delete")
-//    public String  deleteUser(@RequestParam(required = true, defaultValue = "" ) Long userId,
-//                              @RequestParam(required = true, defaultValue = "delete" ) String action,
-//                              Model model) {
-//        if (action.equals("delete")){
-//            userService.delete(userId);
-//        }
-//        return "redirect:/admin";
+    @PostMapping("/saveUser")
+    public String saveUser(@ModelAttribute User user) {
+        ur.save(user);
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/showUpdateForm")
+    public ModelAndView showUpdateForm(@RequestParam Long userId) {
+        ModelAndView mav = new ModelAndView("addUserForm");
+        User user = ur.findById(userId).get();
+        mav.addObject("user", user);
+        return mav;
+    }
+
+    @GetMapping("/deleteUser")
+    public String deleteUser(@RequestParam Long userId) {
+        ur.deleteById(userId);
+        return "redirect:/admin";
+    }
+}
+
+
+
+
+
+
+//    @PostMapping("/admin")
+//    public String deleteUser(Model model) {
+//        User users = new User();
+//        model.addAttribute("users", users);
+//        User delete = userService.delete(users.getId());
+//        return "admin";
 //    }
 
 //    @PostMapping("/save")
@@ -73,4 +78,4 @@ public class AdminController {
 //        model.addAttribute("users", userService.usergtList(userId));
 //        return "users";
 //    }
-}
+//}

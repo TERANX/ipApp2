@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+
+<a th:href="@{/addUserForm}" class="btn btn-primary">Add Employee</a>
+<br/><br/>
+
 <table>
     <thead>
     <th>ID</th>
@@ -20,11 +24,14 @@
         <td th:text="${user.name}"></td>
         <td th:text="${user.password}"></td>
         <td th:text="${user.roles}"></td>
-        <!--        <td>-->
-        <!--            <form th:action="@{/admin/{id}}" method="post" th:object="${user}">-->
-        <!--                <input type="submit" value="delete">-->
-        <!--            </form>-->
-        <!--        </td>-->
+                <td>
+                    <a th:href="@{/showUpdateForm(userId=${user.id})}" class="btn btn-info">Update</a>
+
+                    <a th:href="@{/deleteUser(userId=${user.id})}" class="btn btn-danger ml-2">Delete</a>
+<!--                    <form th:action="@{/admin}" method="post" th:object="${user}">-->
+<!--                        <input type="submit" value="delete">-->
+<!--                    </form>-->
+                </td>
     </tr>
     </tbody>
 </table>
