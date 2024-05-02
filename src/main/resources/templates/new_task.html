@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Новая задача</title>
+</head>
+<body>
+<a th:href="@{/tasks_list}">&larr; К списку задач</a>
+<h1>Новая задача</h1>
+<form method="post" th:action="@{/create_task}">
+    <label>
+        Название:<br>
+        <input type="text" name="title">
+    </label><br>
+    <label>
+        Условие:<br>
+        <textarea name="condition"></textarea>
+    </label><br>
+    <label>
+        Первый ответ:<br>
+        <textarea name="firstSolution"></textarea>
+    </label><br>
+    <label>
+        Второй ответ:<br>
+        <textarea name="secondSolution"></textarea>
+    </label><br>
+    <label>
+        Третий ответ:<br>
+        <textarea name="thirdSolution"></textarea>
+    </label><br>
+    <label>
+        Номер правильного ответа:<br>
+        <textarea name="numberOfCorrectSolution"></textarea>
+    </label><br>
+    <button type="submit">Создать</button>
+</form>
+</body>
+</html>

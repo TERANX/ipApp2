@@ -1,19 +1,21 @@
 package com.example.springsecurity.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name="tasks")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Task {
     @Id
     @GeneratedValue
-    private Long id;
+    private Integer id;
 
     private String name;
 
@@ -22,8 +24,8 @@ public class Task {
     @OneToMany(mappedBy = "task")
     private List<CompletingTask> completingTasks;
 
-    public Task(int id, String name, String condition) {
-        this.id = (long) id;
+    public Task(Integer id, String name, String condition) {
+        this.id = id;
         this.name = name;
         this.condition = condition;
     }

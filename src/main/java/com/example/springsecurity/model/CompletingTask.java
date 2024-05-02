@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class CompletingTask {
 
     @Id
-    Long id;
+    Integer id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

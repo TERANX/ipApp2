@@ -10,7 +10,7 @@ import lombok.*;
 public class TaskSolutions {
     @Id
     @GeneratedValue
-    private Long id;
+    private Integer id;
 
     private String firstSolution;
 

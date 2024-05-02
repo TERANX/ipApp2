@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.*;
+
 
 @Repository
 public class TaskRepositoryImpl implements TaskRepository {
@@ -22,5 +24,15 @@ public class TaskRepositoryImpl implements TaskRepository {
     @Override
     public List<Task> findAll() {
         return this.tasks;
+    }
+
+    @Override
+    public Task save(Task task) {
+        task.setId(this.tasks.stream()
+                .max(Comparator.comparingInt(Task::getId))
+                .map(Task::getId)
+                .orElse(0) + 1);
+        this.tasks.add(task);
+        return task;
     }
 }

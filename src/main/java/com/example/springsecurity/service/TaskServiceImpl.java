@@ -15,4 +15,9 @@ public class TaskServiceImpl implements TaskService {
     public List<Task> findAllTasks() {
         return this.taskRepository.findAll();
     }
+
+    @Override
+    public Task createTask(String name, String condition) {
+        return this.taskRepository.save(new Task(null, name, condition));
+    }
 }
