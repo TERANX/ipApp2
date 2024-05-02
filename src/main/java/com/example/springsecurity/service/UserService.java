@@ -25,7 +25,7 @@ public class UserService {
     private PasswordEncoder encoder;
 
 
-    public List<User> getAll() {
+    public List<User> findAll() {
         return repo.findAll();
     }
 

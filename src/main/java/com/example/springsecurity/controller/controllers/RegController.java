@@ -34,7 +34,7 @@ public class RegController {
     @PostMapping("/reg")
     public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) throws EmailExistsException {
         if (!StringUtils.hasText(userForm.getRoles())) {
-            userForm.setRoles("USER");
+            userForm.setRoles("Admin");
         }
 //
 //        if (bindingResult.hasErrors()) {

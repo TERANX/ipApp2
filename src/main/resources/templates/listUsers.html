@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <thead>
+    <th>ID</th>
+    <th>UserName</th>
+    <th>Password</th>
+    <th>Roles</th>
+    <th>act</th>
+    </thead>
+
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.password}"></td>
+        <td th:text="${user.roles}"></td>
+        <!--        <td>-->
+        <!--            <form th:action="@{/admin/{id}}" method="post" th:object="${user}">-->
+        <!--                <input type="submit" value="delete">-->
+        <!--            </form>-->
+        <!--        </td>-->
+    </tr>
+    </tbody>
+</table>
+<br>
+<a href="/index">Главная</a>
+</body>
+</html>
