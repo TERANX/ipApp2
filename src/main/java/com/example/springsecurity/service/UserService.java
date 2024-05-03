@@ -18,9 +18,6 @@ public class UserService {
     @Autowired
     private  final UserRepository repo;
 
-    @PersistenceContext
-    private EntityManager em;
-
     @Autowired
     private PasswordEncoder encoder;
 
@@ -44,11 +41,6 @@ public class UserService {
         User user = getById(id);
         repo.delete(user);
         return user;
-    }
-
-    public List<User> usergtList(Long idMin) {
-        return em.createQuery("SELECT u FROM User u WHERE u.id > :id", User.class)
-                .setParameter("id", idMin).getResultList();
     }
 
 

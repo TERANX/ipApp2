@@ -12,5 +12,5 @@ import java.util.Set;
 //тип id данной модели в дженерике
 public interface UserRepository extends JpaRepository <User,Long> {
     Optional<User> findByName (String userName);
-//    Set<User> listAllUsers();
+
 }

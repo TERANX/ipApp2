@@ -2,7 +2,6 @@ package com.example.springsecurity.controller.controllers;
 
 import com.example.springsecurity.errors.EmailExistsException;
 import com.example.springsecurity.model.User;
-import com.example.springsecurity.service.AppService;
 import com.example.springsecurity.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -14,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @AllArgsConstructor
@@ -22,8 +20,7 @@ public class RegController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private AppService service;
+
 
     @GetMapping("/reg")
     public String registration(Model model){

@@ -1,20 +1,10 @@
 package com.example.springsecurity.controller.controllers;
 
-import com.example.springsecurity.model.Application;
-import com.example.springsecurity.model.User;
-import com.example.springsecurity.service.AppService;
-import com.example.springsecurity.service.UserService;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.FormSubmitEvent;
-import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Controller

@@ -15,19 +15,17 @@ import java.util.List;
 public class Task {
     @Id
     @GeneratedValue
-    private Integer id;
-
+    private Long id;
     private String name;
-
     private String condition;
 
     @OneToMany(mappedBy = "task")
     private List<CompletingTask> completingTasks;
 
-    public Task(Integer id, String name, String condition) {
-        this.id = id;
-        this.name = name;
-        this.condition = condition;
-    }
+//    public Task(Long id, String name, String condition) {
+//        this.id = id;
+//        this.name = name;
+//        this.condition = condition;
+//    }
 }
 
