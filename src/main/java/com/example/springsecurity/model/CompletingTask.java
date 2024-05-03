@@ -23,9 +23,9 @@ public class CompletingTask {
 
     boolean statusDone; // предоставлено ли решение задачи или еще нет
 
-    boolean statusTrue; // правильно сделана задача или нет
+    boolean statusTrue; // правильно сделана задача или нет doneCorrect
 
     LocalDateTime registeredAt; // дата решения задачи
 
-    int grade; // оценка преподавателя за решение задачи
+//    int grade;  оценка преподавателя за решение задачи
 }
