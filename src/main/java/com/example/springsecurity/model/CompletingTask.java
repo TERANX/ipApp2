@@ -14,11 +14,11 @@ public class CompletingTask {
     Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "idUser")
     User user;
 
     @ManyToOne
-    @JoinColumn(name = "task_id")
+    @JoinColumn(name = "idTask")
     Task task;
 
     boolean statusDone; // предоставлено ли решение задачи или еще нет

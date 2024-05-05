@@ -13,7 +13,7 @@
             <h1 class="page-header">New Task</h1>
             <form th:action="@{/setTask}" method="post" th:object="${tasks}">
 
-                <input type="hidden" th:field="*{id}">
+                <input type="hidden" th:field="*{idTask}">
 
                 <div class="form-group">
                     <label for="inputTitle">Task Title</label>

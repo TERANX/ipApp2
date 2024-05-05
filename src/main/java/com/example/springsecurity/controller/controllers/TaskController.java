@@ -3,6 +3,7 @@ package com.example.springsecurity.controller.controllers;
 import com.example.springsecurity.errors.EmailExistsException;
 import com.example.springsecurity.model.Task;
 import com.example.springsecurity.model.User;
+import com.example.springsecurity.service.OptionsService;
 import com.example.springsecurity.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,9 @@ public class TaskController {
     @Autowired
     private TaskService tsi;
 
+    @Autowired
+    private OptionsService ops;
+
     @GetMapping("tasks_list")
     public String getTasksList(Model model){
         model.addAttribute("tasks", tsi.findAllTasks());
@@ -39,5 +43,15 @@ public class TaskController {
         tsi.save(taskForm);
         return "redirect:/tasks_list";
     }
+
+    //Options
+
+    @GetMapping("options_list")
+    public String getOptList(Model model){
+        model.addAttribute("options", ops.getAll());
+        return "options_list";
+    }
+
+
 
 }

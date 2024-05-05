@@ -12,13 +12,15 @@
     <th>№</th>
     <th>Наименование</th>
     <th>Условие</th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="task:${tasks}">
-    <td th:text="${task.id}"></td>
+    <td th:text="${task.idTask}"></td>
     <td th:text="${task.name}"></td>
     <td th:text="${task.condition}"></td>
+    <td><button type="submit" class="btn btn-primary col-2">To Solve</button></td>
   </tr>
   </tbody>
 </table>

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="tasks")
@@ -14,18 +15,17 @@ import java.util.List;
 @AllArgsConstructor
 public class Task {
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idTask")
+    private Long idTask;
     private String name;
     private String condition;
+
+    @OneToMany(mappedBy = "taskId")
+    private List<Options> options;
 
     @OneToMany(mappedBy = "task")
     private List<CompletingTask> completingTasks;
 
-//    public Task(Long id, String name, String condition) {
-//        this.id = id;
-//        this.name = name;
-//        this.condition = condition;
-//    }
 }
 
