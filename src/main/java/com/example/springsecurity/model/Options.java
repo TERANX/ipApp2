@@ -23,6 +23,8 @@ public class Options {
 
     private String varAnswer;
 
-    private boolean isCorrect;
+    private boolean valid;
+
+
 
 }
