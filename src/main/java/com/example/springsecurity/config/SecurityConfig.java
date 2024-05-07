@@ -59,7 +59,7 @@ public class SecurityConfig {
                         .passwordParameter("password")
                         .usernameParameter("name")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/afterReg", true)
+                        .defaultSuccessUrl("/afterLoginAdmin", true)
                         .failureUrl("/login?error=true")
                         .permitAll())         //разрешение доступа к форме авторизации
 //                .formLogin().loginPage("/login").permitAll()
