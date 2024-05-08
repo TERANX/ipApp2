@@ -21,15 +21,10 @@ public class Task {
     private String description;
     private String difficulty;
 
-//    @ElementCollection
-//    private List<String> answers;
-//
-//    @ElementCollection
-//    private List<Boolean> correctAnswers;
-
     @OneToMany(mappedBy = "taskId", cascade = CascadeType.ALL)
     private List<Options> options;
 
+    @ElementCollection
     private List<Boolean> correctOption;
 
 //    @OneToMany(mappedBy = "task")

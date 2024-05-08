@@ -17,7 +17,7 @@ public class AdminController {
     private UserRepository ur;
 
     @GetMapping({"/admin", "/"})
-    public ModelAndView getAllEmployees() {
+    public ModelAndView getAllUsers() {
         ModelAndView mav = new ModelAndView("listUsers");
         mav.addObject("users", ur.findAll());
         return mav;
