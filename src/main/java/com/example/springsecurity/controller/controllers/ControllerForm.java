@@ -30,6 +30,12 @@ public class ControllerForm {
         return "afterReg";
     }
 
+    @GetMapping("/afterLoginAdmin")
+    public String afterRegAdmin(Model model) {
+        model.addAttribute("title", "Home Page");
+        return "afterLoginAdmin";
+    }
+
     @GetMapping("/login")
     public String getLogin(@RequestParam("error" ) final Optional<String> error,
                            @RequestParam("logout") final Optional<String> logout,
