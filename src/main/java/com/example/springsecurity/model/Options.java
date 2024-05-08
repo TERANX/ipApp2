@@ -21,8 +21,8 @@ public class Options {
 
     private Character localNum;
 
-    private String varAnswer;
+    private String options;
 
-    private boolean isCorrect;
+    private boolean correctOption;
 
 }

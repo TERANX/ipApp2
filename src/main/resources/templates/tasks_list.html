@@ -18,8 +18,9 @@
   <tbody>
   <tr th:each="task:${tasks}">
     <td th:text="${task.idTask}"></td>
-    <td th:text="${task.name}"></td>
-    <td th:text="${task.condition}"></td>
+    <td th:text="${task.title}"></td>
+    <td th:text="${task.description}"></td>
+    <td th:text="${task.difficulty}"></td>
     <td><button type="submit" class="btn btn-primary col-2">To Solve</button></td>
   </tr>
   </tbody>

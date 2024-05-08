@@ -2,12 +2,10 @@ package com.example.springsecurity.service;
 
 import com.example.springsecurity.errors.EmailExistsException;
 import com.example.springsecurity.model.Task;
-import com.example.springsecurity.model.User;
 import com.example.springsecurity.repository.TaskRepository;
-import com.example.springsecurity.repository.UserRepository;
+import com.github.javafaker.Options;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +16,17 @@ public class TaskService {
     @Autowired
     private  final TaskRepository trepo;
 
+
+//    public Task createTask(String title, String description, List<Options> options, List<Boolean> correctOptions) {
+//        Task task = new Task();
+//        task.setTitle(title);
+//        task.setDescription(description);
+//        task.setOptions(options);
+////        task.setCorrectAnswers(correctAnswers);
+//        return trepo.save(task);
+//    }
+
+
     public List<Task> findAllTasks() {
         return trepo.findAll();
     }
@@ -27,7 +36,7 @@ public class TaskService {
                 () -> new RuntimeException(String.format("no user with id=%d founded ", id)));
     }
 
-    public Task save (Task task) throws EmailExistsException {
+    public Task save (Task task) {
         return trepo.save(task);
     }
 

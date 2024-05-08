@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name="tasks")
@@ -18,14 +17,23 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idTask")
     private Long idTask;
-    private String name;
-    private String condition;
+    private String title;
+    private String description;
+    private String difficulty;
 
-    @OneToMany(mappedBy = "taskId")
+//    @ElementCollection
+//    private List<String> answers;
+//
+//    @ElementCollection
+//    private List<Boolean> correctAnswers;
+
+    @OneToMany(mappedBy = "taskId", cascade = CascadeType.ALL)
     private List<Options> options;
 
-    @OneToMany(mappedBy = "task")
-    private List<CompletingTask> completingTasks;
+    private List<Boolean> correctOption;
+
+//    @OneToMany(mappedBy = "task")
+//    private List<CompletingTask> completingTasks;
 
 }
 

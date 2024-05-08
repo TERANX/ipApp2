@@ -1,6 +1,7 @@
 package com.example.springsecurity.controller.controllers;
 
 import com.example.springsecurity.errors.EmailExistsException;
+import com.example.springsecurity.model.Options;
 import com.example.springsecurity.model.Task;
 import com.example.springsecurity.model.User;
 import com.example.springsecurity.service.OptionsService;
@@ -35,12 +36,14 @@ public class TaskController {
     @GetMapping("/setTask")
     public String getNewTaskPage(Model model){
         model.addAttribute("tasks", new Task());
+        model.addAttribute("options", new Options());
         return "setTask";
     }
 
     @PostMapping("/setTask")
-    public String createTask(@ModelAttribute("taskForm") @Valid Task taskForm) throws EmailExistsException {
+    public String createTask(@ModelAttribute("taskForm") @Valid Task taskForm, Options optForm){
         tsi.save(taskForm);
+        ops.save(optForm);
         return "redirect:/tasks_list";
     }
 
@@ -51,7 +54,12 @@ public class TaskController {
         model.addAttribute("options", ops.getAll());
         return "options_list";
     }
-
+//
+//    @PostMapping("/setTask")
+//    public String createTask(@ModelAttribute("optForm") @Valid Options optForm){
+//        ops.save(optForm);
+//        return "redirect:/tasks_list";
+//    }
 
 
 }

@@ -4,6 +4,30 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            let optionCount = 0;
+
+            // Функция для динамического добавления новых вариантов ответа
+            function addOption() {
+                let optionDiv = $('<div class="option form-group"></div>');
+                let optionInput = $('<input type="text" class="form-control" th:name="options[__${optionCount}__]" required>');
+                let correctCheckbox = $('<input type="checkbox" class="form-check-input" th:name="correctOptions[__${optionCount}__]">');
+
+                optionDiv.append(optionInput);
+                optionDiv.append($('<div class="form-check mt-2"></div>').append(correctCheckbox));
+
+                $('#options').append(optionDiv);
+                optionCount++;
+            }
+
+            // Обработчик события клика на кнопку "Добавить ответ"
+            $('#addOption').click(function() {
+                addOption();
+            });
+        });
+    </script>
 </head>
 <body>
 
@@ -17,22 +41,75 @@
 
                 <div class="form-group">
                     <label for="inputTitle">Task Title</label>
-                    <input aria-describedby="textHelp" class="form-control" th:field="*{name}" id="inputTitle"
+                    <input aria-describedby="textHelp" class="form-control" th:field="*{title}" id="inputTitle"
                            type="text">
 
                 </div>
 
 
                 <div class="form-group">
-                    <label for="exampleInputText">Input Condition</label>
-                    <textarea aria-describedby="emailHelp" class="form-control" th:field="*{condition}" id="exampleInputText"
+                    <label for="exampleInputText">Description</label>
+                    <textarea aria-describedby="emailHelp" class="form-control" th:field="*{description}" id="exampleInputText"
                               type="text"></textarea>
 
                 </div>
+                <br>
+                <div class="form-group">
+                        <label for="difficulty">Difficulty:</label>
+                        <select id="difficulty" name="difficulty" th:field="*{difficulty}" required>
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                        <span th:if="${#fields.hasErrors('difficulty')}" th:errors="*{difficulty}"></span>
+                </div>
 
-                <input type="submit" value="sing up">
+                <br><br>
+                <div class="mb-3">
+                    <label for="options" class="form-label">Answer Variants:</label>
+                    <div id="options">
+                        <div class="option form-group">
+                            <input type="text" class="form-control" th:name="*{options}" required>
+                            <div class="form-check mt-2">
+                                <label for="options" class="form-label">If it's correct answer</label>
+                                <input type="checkbox" class="form-check-input" th:name="*{correctOption}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" id="addOption" class="btn btn-primary">Add Answer</button><br><br>
+
+                <input type="submit" value="Create" class="btn btn-success">
             </form>
         </div>
+
+
+
+<!--                <div>-->
+<!--                    <label for="option1">Option 1:</label>-->
+<!--                    <input type="text" id="option1" name="option1" th:field="*{options[0]}" required>-->
+<!--                    <span th:if="${#fields.hasErrors('options[0]')}" th:errors="*{options[0]}"></span>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <label for="option2">Option 2:</label>-->
+<!--                    <input type="text" id="option2" name="option2" th:field="*{options[1]}" required>-->
+<!--                    <span th:if="${#fields.hasErrors('options[1]')}" th:errors="*{options[1]}"></span>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <label for="option3">Option 3:</label>-->
+<!--                    <input type="text" id="option3" name="option3" th:field="*{options[2]}" required>-->
+<!--                    <span th:if="${#fields.hasErrors('options[2]')}" th:errors="*{options[2]}"></span>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <label for="option4">Option 4:</label>-->
+<!--                    <input type="text" id="option4" name="option4" th:field="*{options[3]}" required>-->
+<!--                    <span th:if="${#fields.hasErrors('options[3]')}" th:errors="*{options[3]}"></span>-->
+<!--                </div>-->
+
+<!--                <input type="submit" value="Create">-->
+<!--            </form>-->
+<!--        </div>-->
     </div>
 </div>
 
