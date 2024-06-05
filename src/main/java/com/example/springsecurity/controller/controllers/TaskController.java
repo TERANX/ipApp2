@@ -12,15 +12,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -54,8 +54,9 @@ public class TaskController {
     }
 
     @PostMapping("/setTask")
-    public String createTask(@ModelAttribute("taskForm") @Valid Task taskForm, Option optForm){
-        tsi.save(taskForm, optForm);
+    public String createTask(@RequestParam Map<String, String> taskForm){
+        System.out.println(taskForm);
+        Task task = new Task(taskForm);
 
 //        tr.save(taskForm);
 //        or.save(optForm);

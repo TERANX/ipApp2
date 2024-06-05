@@ -8,15 +8,14 @@
     <script>
         $(document).ready(function () {
             let optionsCounter = 1;
-
             // Обработчик события добавления нового варианта ответа
             $("#add-option-btn").click(function () {
+                optionsCounter++;
+                console.log(optionsCounter);
                 let optionInput = '<div><input type="text" name="option' + optionsCounter + '" id="option' + optionsCounter + '">';
-                optionInput += '<input type="checkbox" name="correct' + optionsCounter + '"> Правильный вариант</div>';
+                optionInput += '<input type="checkbox" name="correct' + optionsCounter + '" id="correct' + optionsCounter + '"> Правильный вариант</div>';
 
                 $("#options-container").append(optionInput);
-
-                optionsCounter++;
             });
 
             // Обработчик события сохранения задачи
@@ -28,31 +27,32 @@
                 // $('#task-container').append(taskTitle, taskDesc, taskDif);
 
                 const elems = document.getElementsByClassName("opt");
-                let options = jQuery.makeArray(elems);
-                for (let i = 1; i < optionsCounter; i++) {
+                let options = jQuery.makeArray(elems).slice(2);
+                //console.log(elems)
+                for (let i = 1; i <= optionsCounter; i++) {
+                    console.log(document.getElementById("option" + i));
                     let optionText = $("#option" + i).val();
-                    let isCorrect = $("#option" + i + ":checkbox:checked").length > 0;
+                    //let isCorrect = $("#option" + i + ":checkbox:checked").checked;
 
-                    isCorrect = !!document.getElementById('correct1').checked;
-
-                    options.push({optionText: optionText, isCorrect: isCorrect});
+                    const isCorrect = $("#correct" + i).val() === 'on';
+                    options.push({option: optionText, corOpt: isCorrect});
                 }
 
-                let data = {taskTitle: taskTitle, taskDesk: taskDesc, taskDif: taskDif, options: options};
-
-                $.post("/setTask", data, function () {
+                let taskForm ={title: taskTitle, description: taskDesc, difficulty: taskDif, options: options};
+                console.log(taskForm)
+                $.post("/setTask", taskForm, function () {
                     console.log("Задача сохранена успешно!");
 
                     // Очистить поля ввода
-                    $("#task-title").val("");
-                    $("#task-description").val("");
-                    $("#task-difficulty").val("");
+                    // $("#task-title").val("");
+                    // $("#task-description").val("");
+                    // $("#task-difficulty").val("");
 
                     // Очистить контейнер с вариантами ответов
-                    $("#options-container").empty();
+                    // $("#options-container").empty();
 
                     // Сбросить счетчик вариантов ответов
-                    optionsCounter = 1;
+                    // optionsCounter = 1;
                 })
                     .fail(function (error) {
                         console.error("Ошибка при сохранении задачи", error);
@@ -92,7 +92,7 @@
     <label>Варианты ответов:</label>
     <div>
         <input type="text" name="option1" id="option1" class="opt">
-        <input type="checkbox" name="correct1" class="opt"> Правильный вариант
+        <input type="checkbox" name="correct1" class="opt" id="correct1"> Правильный вариант
     </div>
 </div>
 <br>
