@@ -5,10 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="tasks")
+@Table(name = "tasks")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,10 +23,10 @@ public class Task {
     private String difficulty;
 
     @OneToMany(mappedBy = "taskId", cascade = CascadeType.ALL)
-    private List<Options> options;
+    private List<Option> options;
 
-    @ElementCollection
-    private List<Boolean> correctOption;
+    @OneToMany(mappedBy = "taskId", cascade = CascadeType.ALL)
+    private List<Option> corOptions;
 
 //    @OneToMany(mappedBy = "task")
 //    private List<CompletingTask> completingTasks;

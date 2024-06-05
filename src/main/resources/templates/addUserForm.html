@@ -18,9 +18,15 @@
 
         <input type="text" th:field="*{email}" class="form-control col-4 mb-4" placeholder="Enter email" />
 
-
-
-        <input type="text" th:field="*{roles}" class="form-control col-4 mb-4" placeholder="Enter roles" />
+        <div class="form-group">
+            <label for="difficulty">Role:</label>
+            <select id="difficulty" name="difficulty" th:field="*{roles}" required>
+                <option value="easy">Student</option>
+                <option value="medium">Teacher</option>
+                <option value="hard">Admin</option>
+            </select>
+            <span th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"></span>
+        </div>
 
         <button type="submit" class="btn btn-primary col-2">Save</button>
 <!--        <input type="hidden" th:field="*{id}" />-->

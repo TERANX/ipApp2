@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let optionCount = 0;
+
+            // Функция для динамического добавления новых вариантов ответа
+            function addOption() {
+                let optionDiv = $('<div class="option form-group"></div>');
+                let optionInput = $('<input type="text" class="form-control" th:name="option[__${optionCount}__]" required>');
+                let optLabBox = $(' <label for="checkboxAnot" class="form-label">If it\'s correct answer</label> ')
+                let correctCheckbox = $('<input type="checkbox" class="form-check-input" th:name="correctOptions[__${optionCount}__]">');
+
+                optionDiv.append(optionInput);
+                optionDiv.append($('<div class="form-check mt-2"></div>').append(correctCheckbox).append(optLabBox));
+
+                $('#option').append(optionDiv);
+                optionCount++;
+            }
+
+            // Обработчик события клика на кнопку "Добавить ответ"
+            $('#addOption').click(function () {
+
+                addOption();
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-header">Add answer</h1>
+
+            <form th:action="@{/setOptions}" method="post" th:object="${option}">
+                <div class="mb-3">
+                    <label for="option" class="form-label">Answer Variants:</label>
+                    <div id="option">
+                        <div class="option form-group">
+                            <!--добавляется только в таблицу task опшенсы не создаются. корректность не отмечается. нет выборки localnum-->
+                            <input type="text" class="form-control" th:name="options[0]" required>
+                            <div class="form-check mt-2">
+                                <label for="option" class="form-label">If it's correct answer</label>
+                                <input type="checkbox" class="form-check-input" th:name="correctOptions[0]">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" id="addOption" class="btn btn-primary">Add Answer</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

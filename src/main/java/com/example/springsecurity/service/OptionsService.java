@@ -1,6 +1,6 @@
 package com.example.springsecurity.service;
 
-import com.example.springsecurity.model.Options;
+import com.example.springsecurity.model.Option;
 import com.example.springsecurity.repository.OptionsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,23 +15,23 @@ public class OptionsService {
     @Autowired
     private OptionsRepository or;
 
-    public Options getById(Long id) {
+    public Option getById(Long id) {
         return or.findById(id).orElseThrow(
                 () -> new RuntimeException(String.format("no options with id=%d founded ", id)));
     }
 
-    public List<Options> getAll() {
+    public List<Option> getAll() {
         return or.findAll();
     }
 
-    public Options save(Options options) {
-        return or.save(options);
+    public Option save(Option option) {
+        return or.save(option);
     }
 
-    public Options delete (Long id) {
-        Options options = getById(id);
-        or.delete(options);
-        return options;
+    public Option delete (Long id) {
+        Option option = getById(id);
+        or.delete(option);
+        return option;
     }
 
 }
