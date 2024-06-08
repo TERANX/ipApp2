@@ -33,9 +33,14 @@
                     console.log(document.getElementById("option" + i));
                     let optionText = $("#option" + i).val();
                     //let isCorrect = $("#option" + i + ":checkbox:checked").checked;
+                    let isCorrect = $('input:checkbox[name=correct' + i +'] ').is(":checked");
+                    if (isCorrect === true){
+                        isCorrect = $('input:checkbox[name=correct' + i +'] ').val() === 'on';
+                    }
 
-                    const isCorrect = $("#correct" + i).val() === 'on';
+
                     options.push({option: optionText, corOpt: isCorrect});
+
                 }
 
                 let taskForm ={title: taskTitle, description: taskDesc, difficulty: taskDif, options: options};
@@ -90,7 +95,7 @@
 
 <div id="options-container">
     <label>Варианты ответов:</label>
-    <div>
+    <div class = "opt1">
         <input type="text" name="option1" id="option1" class="opt">
         <input type="checkbox" name="correct1" class="opt" id="correct1"> Правильный вариант
     </div>
