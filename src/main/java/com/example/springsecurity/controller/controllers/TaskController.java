@@ -28,9 +28,6 @@ import java.util.Map;
 public class TaskController {
 
     @Autowired
-    TaskRepository tr;
-
-    @Autowired
     private TaskService tsi;
 
     @Autowired
@@ -57,8 +54,8 @@ public class TaskController {
     public String createTask(@RequestParam Map<String, String> taskForm){
         System.out.println(taskForm);
         Task task = new Task(taskForm);
-
-//        tr.save(taskForm);
+        System.out.println(task);
+        tsi.save(task);
 //        or.save(optForm);
 
 

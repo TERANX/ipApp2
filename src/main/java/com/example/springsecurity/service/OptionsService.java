@@ -24,8 +24,8 @@ public class OptionsService {
         return or.findAll();
     }
 
-    public Option save(Option option) {
-        return or.save(option);
+    public void save(List<Option> options) {
+        or.saveAll(options);
     }
 
     public Option delete (Long id) {

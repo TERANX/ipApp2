@@ -33,6 +33,16 @@ public class Task {
         title = taskForm.remove("title");
         description = taskForm.remove("description");
         difficulty = taskForm.remove("difficulty");
+        List<Option> fe = new ArrayList<>();
+        for (int i = 0; i < taskForm.size() / 2; i++) {
+            String optionKey = "options[" + i + "][option]";
+            String optionCorOpt = "options[" + i + "][corOpt]";
+            Option option = new Option();
+            option.setOption(taskForm.get(optionKey));
+            option.setCorOpt(Boolean.valueOf(taskForm.get(optionCorOpt)));
+                fe.add(option);
+        }
+        options = fe;
     }
 
 //    @OneToMany(mappedBy = "task")
