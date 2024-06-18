@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user_table")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -21,7 +21,12 @@ public class User {
     @Column(unique = true)
     private String email;
 //    private String address;
-    private String roles;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles",
+                joinColumns = @JoinColumn(name = "user_id"),
+                inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
+
     @OneToMany(mappedBy = "user")
     private List<CompletingTask> completingTasks;
 }

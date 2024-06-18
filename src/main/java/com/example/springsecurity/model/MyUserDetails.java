@@ -1,11 +1,9 @@
-package com.example.springsecurity.config;
+package com.example.springsecurity.model;
 
-import com.example.springsecurity.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -20,9 +18,11 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(user.getRoles().split(", ")) //сплитим строку роли на отдельные кусочки
-                .map(SimpleGrantedAuthority::new) //преобразуем строковое значение в нужный класс
-                .collect(Collectors.toList()); //собираем все роли в лист
+        return user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+
+//                Arrays.stream(user.getRoles().split(", ")) //сплитим строку роли на отдельные кусочки
+//                .map(SimpleGrantedAuthority::new) //преобразуем строковое значение в нужный класс
+//                .collect(Collectors.toList()); //собираем все роли в лист
     }
 
     @Override

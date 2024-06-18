@@ -1,7 +1,10 @@
-package com.example.springsecurity.controller.controllers;
+package com.example.springsecurity.controller;
 
 import com.example.springsecurity.errors.EmailExistsException;
+import com.example.springsecurity.model.Role;
+import com.example.springsecurity.model.RoleEnum;
 import com.example.springsecurity.model.User;
+import com.example.springsecurity.repository.RoleRepository;
 import com.example.springsecurity.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -14,12 +17,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 @AllArgsConstructor
 public class RegController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleRepository roleRepository;
+
+
+
 
 
     @GetMapping("/reg")
@@ -30,23 +40,13 @@ public class RegController {
 
     @PostMapping("/reg")
     public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) throws EmailExistsException {
-        if (!StringUtils.hasText(userForm.getRoles())) {
-            userForm.setRoles("Admin");
-        }
-//
-//        if (bindingResult.hasErrors()) {
-//            return "reg";
-//        }
 
-//        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
-//            model.addAttribute("passwordError", "Пароли не совпадают");
-//            return "registration";
-//        } // если сделаем проверку на правильность ввода пароля
+        Role role = new Role();
+        role.setName(String.valueOf(RoleEnum.USER));
+        User user = new User();
+        user.setRoles((List<Role>) role);
 
-//        if (!service.addUser(userForm)){
-//            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-//            return "reg";
-//        }
+
         userService.save(userForm);
         return "redirect:/login";
     }

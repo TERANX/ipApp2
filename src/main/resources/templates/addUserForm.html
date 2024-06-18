@@ -21,9 +21,9 @@
         <div class="form-group">
             <label for="difficulty">Role:</label>
             <select id="difficulty" name="difficulty" th:field="*{roles}" required>
-                <option value="easy">Student</option>
-                <option value="medium">Teacher</option>
-                <option value="hard">Admin</option>
+                <option value="Student">Student</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Admin">Admin</option>
             </select>
             <span th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"></span>
         </div>

@@ -1,4 +1,4 @@
-package com.example.springsecurity.controller.controllers;
+package com.example.springsecurity.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;

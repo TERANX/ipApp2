@@ -35,7 +35,7 @@
                     //let isCorrect = $("#option" + i + ":checkbox:checked").checked;
                     let isCorrect = $('input:checkbox[name=correct' + i +'] ').is(":checked");
                     if (isCorrect === true){
-                        isCorrect = $('input:checkbox[name=correct' + i +'] ').val() ===;
+                        isCorrect = $('input:checkbox[name=correct' + i +'] ').val() === "on";
                     }
 
 

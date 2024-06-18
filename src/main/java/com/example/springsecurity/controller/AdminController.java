@@ -1,4 +1,4 @@
-package com.example.springsecurity.controller.controllers;
+package com.example.springsecurity.controller;
 
 import com.example.springsecurity.model.User;
 //import com.example.springsecurity.model.dto.UserCreateDto;

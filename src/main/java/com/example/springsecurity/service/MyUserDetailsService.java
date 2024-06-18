@@ -1,6 +1,6 @@
 package com.example.springsecurity.service;
 
-import com.example.springsecurity.config.MyUserDetails;
+import com.example.springsecurity.model.MyUserDetails;
 import com.example.springsecurity.model.User;
 import com.example.springsecurity.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

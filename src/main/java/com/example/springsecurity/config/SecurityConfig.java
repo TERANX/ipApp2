@@ -9,57 +9,63 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity
-@EnableMethodSecurity
+//@EnableWebSecurity
+//@EnableMethodSecurity
 public class SecurityConfig {
-    //Пасворд энкодер используется ждя одностороннего преобразования пароля
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new MyUserDetailsService();
-    }
-//    @Bean
-//    public UserDetailsService userDetailsService(PasswordEncoder encoder){
-//        return  new MyUserDetailsService();
-//    }
-
-//    @Bean
-//    public UserDetailsService userDetailsService(PasswordEncoder encoder){
-//        UserDetails admin = User.builder().username("admin").password(encoder.encode("admin")).roles("ADMIN").build();
-//        UserDetails user = User.builder().username("user").password(encoder.encode("user")).roles("USER").build();
-//        UserDetails teacher = User.builder().username("teacher").password(encoder.encode("teacher")).roles("TEACHER").build();
-//        return  new InMemoryUserDetailsManager(admin, user);
-//    }
 
     @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService());
-        provider.setPasswordEncoder(passwordEncoder());
-        return provider;
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
+
+
+//    @Bean
+//    public AuthenticationProvider authenticationProvider() {
+//        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+//        provider.setUserDetailsService(userDetailsService());
+//        provider.setPasswordEncoder(passwordEncoder());
+//        return provider;
+//    }
 
 //"api/v1/apps/welcome", "api/v1/apps/new-user", "/**",
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/reg", "/index", "/login","/").permitAll() //чтоб контрольная точка была доступна всем
-                .requestMatchers("/**").authenticated())         //для авторизованных
-                .formLogin(fl -> fl.loginPage("/login")
-                        .passwordParameter("password")
-                        .usernameParameter("name")
-                        .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/afterLoginAdmin", true)
-                        .failureUrl("/login?error=true")
-                        .permitAll())         //разрешение доступа к форме авторизации
-//                .formLogin().loginPage("/login").permitAll()
-                .build();
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, InitialAuthenticationFilter initialAuthenticationFilter) throws Exception {
+
+        http.headers(headers -> headers
+                .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable);
+
+        http.authorizeHttpRequests(auth -> auth.requestMatchers("/reg", "/index", "/login")
+                                    .permitAll()
+                                    .anyRequest()
+                                    .authenticated());
+
+        http.addFilterAt(initialAuthenticationFilter, BasicAuthenticationFilter.class);
+
+        return http.build();
     }
+//        return http.csrf(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests(auth -> auth.requestMatchers("/reg", "/index", "/login","/").permitAll() //чтоб контрольная точка была доступна всем
+//                .requestMatchers("/**").authenticated())         //для авторизованных
+//                .formLogin(fl -> fl.loginPage("/login")
+//                        .passwordParameter("password")
+//                        .usernameParameter("name")
+//                        .loginProcessingUrl("/login")
+//                        .defaultSuccessUrl("/afterLoginAdmin", true)
+//                        .failureUrl("/login?error=true")
+//                        .permitAll())         //разрешение доступа к форме авторизации
+////                .formLogin().loginPage("/login").permitAll()
+//                .build();
+//    }
 
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -70,9 +76,5 @@ public class SecurityConfig {
 //                .build();
 //    }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 }

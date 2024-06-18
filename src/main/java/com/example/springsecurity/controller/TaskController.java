@@ -1,25 +1,16 @@
-package com.example.springsecurity.controller.controllers;
+package com.example.springsecurity.controller;
 
 import com.example.springsecurity.model.Option;
 import com.example.springsecurity.model.Task;
-import com.example.springsecurity.model.User;
 import com.example.springsecurity.repository.OptionsRepository;
-import com.example.springsecurity.repository.TaskRepository;
 import com.example.springsecurity.service.OptionsService;
 import com.example.springsecurity.service.TaskService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 @Controller
