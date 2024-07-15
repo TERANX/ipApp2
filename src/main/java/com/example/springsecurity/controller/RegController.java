@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -35,6 +36,7 @@ public class RegController {
     @GetMapping("/reg")
     public String registration(Model model){
         model.addAttribute("user", new User());
+        model.addAttribute("roles", new Role());
         return "reg";
     }
 
@@ -43,8 +45,6 @@ public class RegController {
 
         Role role = new Role();
         role.setName(String.valueOf(RoleEnum.USER));
-        User user = new User();
-        user.setRoles((List<Role>) role);
 
 
         userService.save(userForm);
