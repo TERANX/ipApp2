@@ -27,10 +27,10 @@ public class TaskController {
     @Autowired
     OptionsRepository or;
 
-    @GetMapping("tasks_list")
+    @GetMapping("tasksList")
     public String getTasksList(Model model){
         model.addAttribute("tasks", tsi.findAllTasks());
-        return "tasks_list";
+        return "tasksList";
     }
 
     @GetMapping("/setTask")
@@ -50,7 +50,7 @@ public class TaskController {
 //        or.save(optForm);
 
 
-        return "redirect:/tasks_list";
+        return "redirect:/tasksList";
     }
 
     //Options

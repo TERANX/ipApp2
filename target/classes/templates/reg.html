@@ -3,42 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <title>Title</title>
+    <title>Registration</title>
 </head>
 <body>
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1 class="page-header">Registration</h1>
-            <form th:action="@{/reg}" method="post" th:object="${user}">
-
-                <div class="form-group">
-                    <label for="inputName">UserName</label>
-                    <input aria-describedby="textHelp" class="form-control" th:field="*{name}" id="inputName"
-                           type="text">
-
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Registration</h3>
                 </div>
+                <div class="card-body">
+                    <!-- Сообщения об ошибках -->
+                    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
+                    <!-- Вариант 1: Без th:object (проще) -->
+                    <form action="/reg" method="post">
 
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input aria-describedby="emailHelp" class="form-control" th:field="*{email}" id="exampleInputEmail1"
-                           type="email">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="name"
+                                   name="name"
+                                   required
+                                   placeholder="Enter your name">
+                        </div>
 
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input class="form-control"
+                                   id="exampleInputEmail1"
+                                   name="email"
+                                   type="email"
+                                   required
+                                   placeholder="Enter email">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input class="form-control"
+                                   id="exampleInputPassword1"
+                                   name="password"
+                                   type="password"
+                                   required
+                                   placeholder="Enter password">
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Sign Up</button>
+                        </div>
+
+                        <div class="mt-3 text-center">
+                            <a href="/custom-login" class="text-decoration-none">Already have an account? Login</a>
+                        </div>
+                    </form>
                 </div>
-
-
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input class="form-control" th:field="*{password}" id="exampleInputPassword1" type="password">
-                </div>
-
-                <div hidden="hidden">
-                    <input th:field="roles">
-                </div>
-
-                <input type="submit" value="sing up">
-            </form>
+            </div>
         </div>
     </div>
 </div>

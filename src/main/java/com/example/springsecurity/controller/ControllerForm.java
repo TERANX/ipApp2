@@ -3,62 +3,67 @@ package com.example.springsecurity.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
-
 @Controller
-@RequestMapping("/")
 @AllArgsConstructor
 public class ControllerForm {
-    // Без thymeleaf будет выводится стандартная форма секьюрити, не будет срабатывать индекс.штмл,
-    // при подключенной аннотации RestController не срабатывает индекс.штмл , но при этом если сделать  вложенный класс
-//        public class AppController {
-    // то  он отрабатывает
 
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/afterReg";
+    }
 
-    // add realisation "/"
     @GetMapping("/index")
-    public String home(Model model) {
+    public String index(Model model) {
         model.addAttribute("title", "Home Page");
         return "index";
     }
 
-    @GetMapping("/afterReg")
-    public String afterReg(Model model) {
-        model.addAttribute("title", "Home Page");
-        return "afterReg";
-    }
-
-    @GetMapping("/afterLoginAdmin")
-    public String afterRegAdmin(Model model) {
-        model.addAttribute("title", "Home Page");
-        return "afterLoginAdmin";
-    }
-
     @GetMapping("/login")
-    public String getLogin(@RequestParam("error" ) final Optional<String> error,
-                           @RequestParam("logout") final Optional<String> logout,
+    public String getLogin(@RequestParam(value = "error", required = false) String error,
+                           @RequestParam(value = "logout", required = false) String logout,
+                           @RequestParam(value = "registered", required = false) String registered,
                            Model model) {
 
-        error.ifPresent( e ->  model.addAttribute("error", "Неправильный логин или пароль")
-            );
-
-
-        logout.ifPresent( e -> model.addAttribute("logout", e));
+        if (error != null) {
+            model.addAttribute("error", "Invalid username or password");
+        }
+        if (logout != null) {
+            model.addAttribute("message", "You have been logged out");
+        }
+        if (registered != null) {
+            model.addAttribute("message", "Registration successful! Please login.");
+        }
 
         return "login";
     }
 
-    @PostMapping("/login")
-    public String toHome(Model model, @RequestParam("email") String email, @RequestParam("password") String password){
-        model.addAttribute("title", "Home Page");
-        System.out.println(email);
-        System.out.println(password);
-            return "redirect:/index";
-//            return "redirect:/afterReg";
+    @GetMapping("/custom-login")
+    public String customLogin(@RequestParam(value = "error", required = false) String error,
+                              @RequestParam(value = "logout", required = false) String logout,
+                              @RequestParam(value = "registered", required = false) String registered,
+                              Model model) {
 
+        System.out.println("=== CUSTOM LOGIN PAGE ACCESSED ===");
+
+        if (error != null) {
+            model.addAttribute("error", "Invalid username or password");
+            System.out.println("Login error parameter detected");
         }
 
+        if (logout != null) {
+            model.addAttribute("message", "You have been logged out successfully");
+            System.out.println("Logout parameter detected");
+        }
 
+        if (registered != null) {
+            model.addAttribute("message", "Registration successful! Please login.");
+            System.out.println("Registered parameter detected");
+        }
+
+        return "login";
+    }
 }
