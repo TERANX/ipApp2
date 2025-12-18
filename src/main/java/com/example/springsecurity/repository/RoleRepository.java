@@ -11,15 +11,12 @@ import java.util.Optional;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    // Добавьте этот метод
+    // Используем String для поиска, так как поле name в Role - String
     @Query("SELECT r FROM Role r WHERE r.name = :name")
-    Role findByName(@Param("name") String name);
+    Optional<Role> findByName(@Param("name") String name);
 
-    // Или так:
-    default Role findRoleByName(String name) {
-        return findAll().stream()
-                .filter(role -> name.equals(role.getName()))
-                .findFirst()
-                .orElse(null);
+    // Метод для проверки существования роли по имени
+    default boolean existsByName(String roleName) {
+        return findByName(roleName).isPresent();
     }
 }

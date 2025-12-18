@@ -27,8 +27,14 @@ public class MyUserDetailsService implements UserDetailsService {
         if (user.isPresent()) {
             System.out.println("User found: " + user.get().getName());
             System.out.println("User email: " + user.get().getEmail());
-            System.out.println("Roles count: " +
-                    (user.get().getRoles() != null ? user.get().getRoles().size() : 0));
+
+            if (user.get().getRoles() != null) {
+                System.out.println("User roles: " +
+                        user.get().getRoles().stream()
+                                .map(role -> role.getName())
+                                .reduce((a, b) -> a + ", " + b)
+                                .orElse("No roles"));
+            }
 
             return user.map(MyUserDetails::new)
                     .orElseThrow(() -> new UsernameNotFoundException(userName + " not found"));

@@ -5,24 +5,33 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class MyUserDetails implements UserDetails {
 
-    final private  User user;
+    private final User user;
 
-    public MyUserDetails (User user){
+    public MyUserDetails(User user) {
         this.user = user;
     }
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+        if (user.getRoles() == null || user.getRoles().isEmpty()) {
+            return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+        }
 
-//                Arrays.stream(user.getRoles().split(", ")) //сплитим строку роли на отдельные кусочки
-//                .map(SimpleGrantedAuthority::new) //преобразуем строковое значение в нужный класс
-//                .collect(Collectors.toList()); //собираем все роли в лист
+        return user.getRoles().stream()
+                .map(role -> {
+                    String roleName = role.getName().toUpperCase();
+                    // Добавляем ROLE_ если нет
+                    if (!roleName.startsWith("ROLE_")) {
+                        roleName = "ROLE_" + roleName;
+                    }
+                    return new SimpleGrantedAuthority(roleName);
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -38,20 +47,48 @@ public class MyUserDetails implements UserDetails {
     @Override
     public boolean isAccountNonExpired() {
         return true;
-    } //истек ли срок действия аккаунта, true если не истек
+    }
 
     @Override
     public boolean isAccountNonLocked() {
         return true;
-    } //заблокирован  ли пользователь, true если не заблокирован
+    }
 
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
-    } //Истек ли срок действия пароля, true если учетные данные пользователя действительны
+    }
 
     @Override
     public boolean isEnabled() {
         return true;
-    } // включен ли пользователь, true если включен
+    }
+
+    // Дополнительные методы
+    public String getEmail() {
+        return user.getEmail();
+    }
+
+    public Long getId() {
+        return user.getId();
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    // Проверка ролей
+    public boolean hasRole(String roleName) {
+        if (user.getRoles() == null) return false;
+        return user.getRoles().stream()
+                .anyMatch(role -> role.getName().equalsIgnoreCase(roleName));
+    }
+
+    public boolean isTeacher() {
+        return hasRole("TEACHER") || hasRole("ROLE_TEACHER");
+    }
+
+    public boolean isAdmin() {
+        return hasRole("ADMIN") || hasRole("ROLE_ADMIN");
+    }
 }

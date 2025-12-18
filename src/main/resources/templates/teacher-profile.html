@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Профиль преподавателя</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="/teacher/dashboard">
+            <i class="fas fa-chalkboard-teacher me-2"></i>Панель преподавателя
+        </a>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="/teacher/dashboard">
+                <i class="fas fa-tachometer-alt me-1"></i>Дашборд
+            </a>
+            <a class="nav-link active" href="/teacher/profile">
+                <i class="fas fa-user me-1"></i>Профиль
+            </a>
+            <form th:action="@{/logout}" method="post" class="nav-item">
+                <button type="submit" class="btn btn-outline-light btn-sm">
+                    <i class="fas fa-sign-out-alt me-1"></i>Выйти
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-chalkboard-teacher fa-5x text-primary"></i>
+                    </div>
+                    <h3 th:text="${username}">Преподаватель</h3>
+                    <div class="badge bg-success fs-5 mb-2">TEACHER</div>
+                    <p class="text-muted" th:text="${email}">email@example.com</p>
+                    <hr>
+                    <p><i class="fas fa-id-card me-2"></i>ID: <span th:text="${userId}">1</span></p>
+                    <p><i class="fas fa-calendar-alt me-2"></i>Преподаватель с: <span th:text="${teacherSince}">Сегодня</span></p>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0"><i class="fas fa-cogs me-2"></i>Быстрые действия</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="/teacher/create-task" class="btn btn-primary">
+                            <i class="fas fa-plus-circle me-1"></i>Создать задачу
+                        </a>
+                        <a href="/teacher/students" class="btn btn-success">
+                            <i class="fas fa-user-plus me-1"></i>Управление студентами
+                        </a>
+                        <a href="/teacher/courses" class="btn btn-warning">
+                            <i class="fas fa-book-medical me-1"></i>Управление курсами
+                        </a>
+                        <a href="/profile" class="btn btn-outline-secondary">
+                            <i class="fas fa-user me-1"></i>Обычный профиль
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0"><i class="fas fa-user-tie me-2"></i>Профиль преподавателя</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <h5><i class="fas fa-chalkboard-teacher me-2"></i>Добро пожаловать в профиль преподавателя!</h5>
+                        <p>Здесь вы можете управлять своими настройками как преподаватель.</p>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card text-white bg-primary">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-users fa-3x mb-3"></i>
+                                    <h2 th:text="${totalStudents}">15</h2>
+                                    <p class="mb-0">Студентов</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card text-white bg-success">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-book fa-3x mb-3"></i>
+                                    <h2 th:text="${activeCourses}">3</h2>
+                                    <p class="mb-0">Активных курсов</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5>Настройки преподавателя:</h5>
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Уведомления по email:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="notifyNewStudents" checked>
+                                <label class="form-check-label" for="notifyNewStudents">
+                                    Новые студенты на курсах
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="notifyTaskSubmissions" checked>
+                                <label class="form-check-label" for="notifyTaskSubmissions">
+                                    Сдача заданий студентами
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Доступ к профилю:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="showToStudents" checked>
+                                <label class="form-check-label" for="showToStudents">
+                                    Показывать профиль студентам
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i>Сохранить настройки
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0"><i class="fas fa-history me-2"></i>Последние действия</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="fas fa-sign-in-alt text-success me-2"></i>
+                            Вход в систему как преподаватель
+                            <span class="float-end text-muted">Только что</span>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-tachometer-alt text-primary me-2"></i>
+                            Доступ к панели управления
+                            <span class="float-end text-muted">Сегодня</span>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-user-plus text-info me-2"></i>
+                            Регистрация как преподаватель
+                            <span class="float-end text-muted">Сегодня</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
